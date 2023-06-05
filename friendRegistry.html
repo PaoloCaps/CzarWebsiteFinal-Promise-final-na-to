@@ -8,7 +8,6 @@
       background-repeat: no-repeat;
       background-size: cover;
     }
-
     h1 {
       color: white;
     }
@@ -16,7 +15,7 @@
 </head>
 <body>
   <h1>Friend Registry</h1>
-  <form action="https://script.google.com/macros/s/AKfycbx2PiU2ZqEIeo692hSGwwPGLt4rzoR90F_V1z-5Y65EBqB-PMDYSM3lFZSiEDB5TgCGKQ/exec" method="post">
+  <form action="https://docs.google.com/spreadsheets/d/1Et43Q9TfSj4Acqby2rwK8yRIc30zENoio8zpFFP2rgk/edit?usp=sharing" method="post" onsubmit="return false;">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br>
     <label for="age">Age:</label>
@@ -34,10 +33,22 @@
     <input type="tel" id="phone" name="phone" required><br>
     <input type="submit" value="Submit">
   </form>
-
-  <div id="recordContainer"></div>
-
- 
-
+  <button onclick="printInput()">Print Input</button>
+  <div id="input-output"></div>
+  <script>
+    function printInput() {
+      var name = document.getElementById("name").value;
+      var age = document.getElementById("age").value;
+      var gender = document.getElementById("gender").value;
+      var email = document.getElementById("email").value;
+      var phone = document.getElementById("phone").value;
+      var output = "Name: " + name + "<br>" +
+                   "Age: " + age + "<br>" +
+                   "Gender: " + gender + "<br>" +
+                   "Email: " + email + "<br>" +
+                   "Phone: " + phone + "<br>";
+      document.getElementById("input-output").innerHTML = output;
+    }
+  </script>
 </body>
 </html>
