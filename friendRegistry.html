@@ -15,7 +15,7 @@
 </head>
 <body>
   <h1>Friend Registry</h1>
-  <form id="friend-form">
+  <form id="friendForm">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br>
     <label for="age">Age:</label>
@@ -31,34 +31,31 @@
     <input type="email" id="email" name="email" required><br>
     <label for="phone">Phone Number:</label>
     <input type="tel" id="phone" name="phone" required><br>
-    <button type="submit">Submit</button>
+    <button type="button" id="submitButton">Submit</button>
   </form>
   <div id="successMessage" class="success-message"></div>
 
-    <h2>List of Registered Friends</h2>
-    <table id="friendTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-        </tr>
-      </thead>
-      <tbody id="friendTableBody">
-        <!-- Friend information will be dynamically added here -->
-      </tbody>
-    </table>
-
-  </div>
+  <h2>List of Registered Friends</h2>
+  <table id="friendTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+      </tr>
+    </thead>
+    <tbody id="friendTableBody">
+      <!-- Friend information will be dynamically added here -->
+    </tbody>
+  </table>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var friendForm = document.getElementById("friendForm");
       var friendTableBody = document.getElementById("friendTableBody");
       var successMessage = document.getElementById("successMessage");
-      var hiddenIframe = document.getElementById("hiddenIframe");
       var submitButton = document.getElementById("submitButton");
 
       submitButton.addEventListener("click", function() {
@@ -100,7 +97,7 @@
         friendForm.reset();
 
         // Display success message
-        successMessage.textContent = "1 Friend Added Successfully(check the sheet)";
+        successMessage.textContent = "1 Friend Added Successfully";
 
         // Prepare the form data to be sent
         var formData = new FormData();
