@@ -2,67 +2,120 @@
 <html>
 <head>
   <title>Friend Registry</title>
-  <style>
-    body {
-      background-image: url("your-background-image.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-    h1 {
-      color: white;
-    }
-  </style>
 </head>
 <body>
-  <h1>Friend Registry</h1>
-  <form action="https://script.google.com/macros/s/AKfycbx2PiU2ZqEIeo692hSGwwPGLt4rzoR90F_V1z-5Y65EBqB-PMDYSM3lFZSiEDB5TgCGKQ/exec" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br>
-    <label for="age">Age:</label>
-    <input type="number" id="age" name="age" required><br>
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-      <option value="">Select</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-    <label for="phone">Phone Number:</label>
-    <input type="tel" id="phone" name="phone" required><br>
-    <input type="submit" value="Submit">
-  </form>
-  <button onclick="printInput()">Print Input</button>
-  <button onclick="printText()">Print Text</button>
-  <div id="input-output"></div>
+  <div class="container">
+    <h1>Friend Registry</h1>
+    <form id="friendForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required><br>
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br>
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required><br>
+      <input type="button" value="Submit Information" id="submitButton">
+    </form>
+
+    <div id="successMessage" class="success-message"></div>
+
+    <h2>Registered Friends</h2>
+    <table id="friendTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+        </tr>
+      </thead>
+      <tbody id="friendTableBody">
+        <!-- Friend information will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <iframe id="hiddenIframe" name="hiddenIframe"></iframe>
+  </div>
+
   <script>
-    function printInput() {
-      var name = document.getElementById("name").value;
-      var age = document.getElementById("age").value;
-      var gender = document.getElementById("gender").value;
-      var email = document.getElementById("email").value;
-      var phone = document.getElementById("phone").value;
-      var output = "Name: " + name + "<br>" +
-                   "Age: " + age + "<br>" +
-                   "Gender: " + gender + "<br>" +
-                   "Email: " + email + "<br>" +
-                   "Phone: " + phone + "<br>";
-      document.getElementById("input-output").innerHTML = output;
-    }
-    function printText() {
-      var name = document.getElementById("name").value;
-      var age = document.getElementById("age").value;
-      var gender = document.getElementById("gender").value;
-      var email = document.getElementById("email").value;
-      var phone = document.getElementById("phone").value;
-      var output = "Name: " + name + "\n" +
-                   "Age: " + age + "\n" +
-                   "Gender: " + gender + "\n" +
-                   "Email: " + email + "\n" +
-                   "Phone: " + phone + "\n";
-      alert(output);
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var friendForm = document.getElementById("friendForm");
+      var friendTableBody = document.getElementById("friendTableBody");
+      var successMessage = document.getElementById("successMessage");
+      var hiddenIframe = document.getElementById("hiddenIframe");
+      var submitButton = document.getElementById("submitButton");
+
+      submitButton.addEventListener("click", function() {
+        // Get form values
+        var name = document.getElementById("name").value;
+        var age = document.getElementById("age").value;
+        var gender = document.getElementById("gender").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+
+        // Create a new table row
+        var row = document.createElement("tr");
+
+        // Create table cells for each data field
+        var nameCell = document.createElement("td");
+        var ageCell = document.createElement("td");
+        var genderCell = document.createElement("td");
+        var emailCell = document.createElement("td");
+        var phoneCell = document.createElement("td");
+
+        // Assign values to the table cells
+        nameCell.textContent = name;
+        ageCell.textContent = age;
+        genderCell.textContent = gender;
+        emailCell.textContent = email;
+        phoneCell.textContent = phone;
+
+        // Append the cells to the row
+        row.appendChild(nameCell);
+        row.appendChild(ageCell);
+        row.appendChild(genderCell);
+        row.appendChild(emailCell);
+        row.appendChild(phoneCell);
+
+        // Append the row to the table body
+        friendTableBody.appendChild(row);
+
+        // Reset the form
+        friendForm.reset();
+
+        // Display success message
+        successMessage.textContent = "Friend Successfully Added";
+
+        // Prepare the form data to be sent
+        var formData = new FormData();
+        formData.append("name", name);
+        formData.append("age", age);
+        formData.append("gender", gender);
+        formData.append("email", email);
+        formData.append("phone", phone);
+
+        // Send the form data to the AppScript URL using Fetch API
+        fetch("https://script.google.com/macros/s/AKfycbx2PiU2ZqEIeo692hSGwwPGLt4rzoR90F_V1z-5Y65EBqB-PMDYSM3lFZSiEDB5TgCGKQ/exec", {
+          method: "POST",
+          body: formData
+        })
+          .then(function(response) {
+            // Handle the response here if needed
+          })
+          .catch(function(error) {
+            console.error("Error:", error);
+          });
+      });
+    });
   </script>
 </body>
 </html>
