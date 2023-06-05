@@ -35,20 +35,5 @@
   </form>
   <button onclick="printInput()">Print Input</button>
   <div id="input-output"></div>
-  <script>
-    function printInput() {
-      var name = document.getElementById("name").value;
-      var age = document.getElementById("age").value;
-      var gender = document.getElementById("gender").value;
-      var email = document.getElementById("email").value;
-      var phone = document.getElementById("phone").value;
-      var output = "Name: " + name + "<br>" +
-                   "Age: " + age + "<br>" +
-                   "Gender: " + gender + "<br>" +
-                   "Email: " + email + "<br>" +
-                   "Phone: " + phone + "<br>";
-      document.getElementById("input-output").innerHTML = output;
-    }
-  </script>
 </body>
 </html>
